@@ -4,5 +4,5 @@ class Main{
     }
 }
 
-var m = new Main;
+var m = new Main();
 m.WriteToLog();
