@@ -1,0 +1,14 @@
+{
+    "author": {
+        "name": "Florin Munteanu",
+        "email": "florinmunteanu96@gmail.com"
+    },
+    "description": "Project for university",
+    "repository": {
+        "type": "git",
+        "url": "AddSomethingHereLater"
+    },
+    "scripts": {
+        "compile": "tsc -p ./src"
+    }
+}
