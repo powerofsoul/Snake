@@ -1,19 +1,19 @@
 import { List } from "./Utils"
 import THREE = require('three');
 
-interface IBodyPart {
-    width: number;
-    height: number;
-    position: THREE.Vector2;
-}
-
 interface IBodyGeometry {
     geometry: THREE.BoxGeometry;
     material: THREE.MeshBasicMaterial;
     mesh: THREE.Mesh;
 }
 
-class BodyGeometry implements IBodyGeometry, IBodyPart {
+interface IBodyPart extends IBodyGeometry {
+    width: number;
+    height: number;
+    position: THREE.Vector2;
+}
+
+class BodyGeometry implements IBodyPart {
     width: number;
     height: number;
     position: THREE.Vector2;
@@ -46,12 +46,14 @@ class Body {
 
     constructor(startPosition: THREE.Vector2, color: string) {
         this.head = new Head(startPosition, color);
-        this.bodyParts = new List<IBodyPart>()
+        this.bodyParts = new List<IBodyPart>();
+        this.bodyParts.add(this.head);
     }
 
-    public getMesh(){
+    public getMesh() {
         var meshes = new THREE.Group();
         meshes.add(this.head.mesh);
+        this.bodyParts.forEach(item => meshes.add(item.mesh));
         return meshes;
     }
 }
@@ -62,7 +64,7 @@ export class Snake {
         this.body = new Body(startPostion, color);
     }
 
-    public getMesh(){
+    public getMesh() {
         return this.body.getMesh();
     }
 }
