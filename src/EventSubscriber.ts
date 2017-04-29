@@ -1,3 +1,5 @@
+import Jquery = require("jquery")
+
 enum EventType{
     RightClick,LeftClick,UP,DOWN,LEFT,RIGHT
 }
