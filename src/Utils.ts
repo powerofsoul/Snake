@@ -25,4 +25,14 @@ export class List<T>{
             this.removeAt(index);
         }
     }
+
+    public forEach(callBack: CallBack<T>) {
+        this.items.forEach(item => {
+            callBack(item);
+        });
+    }
+}
+
+interface CallBack<T> {
+    (item: T): void;
 }
