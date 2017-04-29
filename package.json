@@ -1,14 +1,23 @@
 {
-    "author": {
-        "name": "Florin Munteanu",
-        "email": "florinmunteanu96@gmail.com"
-    },
-    "description": "Project for university",
-    "repository": {
-        "type": "git",
-        "url": "AddSomethingHereLater"
-    },
-    "scripts": {
-        "compile": "tsc -p ./src"
-    }
+  "author": {
+    "name": "Florin Munteanu",
+    "email": "florinmunteanu96@gmail.com"
+  },
+  "description": "Project for university",
+  "repository": {
+    "type": "git",
+    "url": "AddSomethingHereLater"
+  },
+  "scripts": {
+    "compile": "tsc -p ./src",
+    "start": "webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "@types/three": "latest",
+    "three": "^0.85.2"
+  },
+  "devDependencies": {
+    "source-map-loader": "^0.2.1",
+    "webpack": "^2.4.1"
+  }
 }
