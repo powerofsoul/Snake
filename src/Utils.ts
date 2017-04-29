@@ -1,30 +1,28 @@
-export namespace Utils {
-    class List<T>{
-        private items: T[];
-        private size :number;
+export class List<T>{
+    private items: T[];
+    private size: number;
 
-        public constructor(){
-            this.clear();
-        }
-        
-        public clear(){
-            this.items = [];
-            this.size = 0;
-        }
+    public constructor() {
+        this.clear();
+    }
 
-        public add(item:T){
-            this.items.push(item);
-        }
+    public clear() {
+        this.items = [];
+        this.size = 0;
+    }
 
-        public removeAt(index:number){
-            this.items.splice(index,1);
-        }
+    public add(item: T) {
+        this.items.push(item);
+    }
 
-        public removeItem(item:T){
-            var index = this.items.findIndex(i=> i == item);
-            if(index>=0){
-                this.removeAt(index);
-            }
+    public removeAt(index: number) {
+        this.items.splice(index, 1);
+    }
+
+    public removeItem(item: T) {
+        var index = this.items.findIndex(i => i == item);
+        if (index >= 0) {
+            this.removeAt(index);
         }
     }
 }
