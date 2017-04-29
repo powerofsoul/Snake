@@ -1,6 +1,6 @@
 import THREE = require('three');
 import { GameWindow } from "./GameWindow";
-
+import { Snake } from "./Snake";
 var scene: THREE.Scene;
 var camera: THREE.PerspectiveCamera;
 var renderer = new THREE.WebGLRenderer();
@@ -11,7 +11,6 @@ var mesh = new THREE.Mesh();
 export class Game {
     constructor() {
         this.init();
-        this.animate();
     }
 
     init() {
@@ -21,24 +20,17 @@ export class Game {
         camera = new THREE.PerspectiveCamera(75, GameWindow.width / GameWindow.height, 1, 10000);
         camera.position.z = 1000;
 
-        geometry = new THREE.BoxGeometry(200, 200, 200);
-        material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+        var s = new Snake(new THREE.Vector2(12,0),"white");
 
-        mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
+        scene.add(s.getMesh());
 
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(GameWindow.width, GameWindow.width);
         document.body.appendChild(renderer.domElement);
+
+        renderer.render(scene,camera);
     }
 
-    animate() {
-        requestAnimationFrame(this.animate);
-        mesh.rotation.x += 0.01;
-        mesh.rotation.y += 0.02;
-        renderer.render(scene, camera);
-
-    }
 }
 function StartGame() {
     var m = new Game();
