@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/powerofsoul/Snake.svg?branch=master)](https://travis-ci.org/powerofsoul/Snake)
 # Simple snake game made using TypeScript and ThreeJS
 
 ## How to build
