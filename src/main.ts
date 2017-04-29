@@ -1,4 +1,5 @@
-import  THREE = require('three');
+import THREE = require('three');
+import { GameWindow } from "./GameWindow";
 
 var scene: THREE.Scene;
 var camera: THREE.PerspectiveCamera;
@@ -10,13 +11,14 @@ var mesh = new THREE.Mesh();
 export class Game {
     constructor() {
         this.init();
+        this.animate();
     }
 
     init() {
 
         scene = new THREE.Scene();
 
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+        camera = new THREE.PerspectiveCamera(75, GameWindow.width / GameWindow.height, 1, 10000);
         camera.position.z = 1000;
 
         geometry = new THREE.BoxGeometry(200, 200, 200);
@@ -26,23 +28,19 @@ export class Game {
         scene.add(mesh);
 
         renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        console.log(renderer);
+        renderer.setSize(GameWindow.width, GameWindow.width);
         document.body.appendChild(renderer.domElement);
     }
 
     animate() {
-
         requestAnimationFrame(this.animate);
-
         mesh.rotation.x += 0.01;
         mesh.rotation.y += 0.02;
-
         renderer.render(scene, camera);
 
     }
 }
-function StartGame(){
+function StartGame() {
     var m = new Game();
 }
 window.onload = StartGame;
