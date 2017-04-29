@@ -10,7 +10,9 @@
   },
   "scripts": {
     "compile": "tsc -p ./src",
-    "start": "webpack --config webpack.config.js"
+    "start": "webpack --config webpack.config.js",
+    
+    "deploy":"npm run compile && npm start"
   },
   "dependencies": {
     "@types/three": "latest",
