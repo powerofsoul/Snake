@@ -32,6 +32,14 @@ export class Game {
         document.body.appendChild(this.renderer.domElement);
 
         this.renderer.render(this.scene, this.camera);
+
+        this.render(s);
+    }
+
+    render(s:Snake){
+        s.move();
+        this.renderer.render(this.scene,this.camera);
+        requestAnimationFrame(e=>{this.render(s)});
     }
 
 }

@@ -1,6 +1,6 @@
 import { List } from "./Utils"
 import THREE = require('three');
-import {SpaceElement} from "./SpaceElement";
+import {SpaceElement, Directions} from "./SpaceElement";
 
 interface IBodyPart {
     width: number;
@@ -43,6 +43,10 @@ class Body {
         this.bodyParts.forEach(item => meshes.add(item));
         return meshes;
     }
+
+    public move(){
+        this.bodyParts.forEach((item) => item.move(Directions.UP,10));
+    }
 }
 
 export class Snake{
@@ -53,5 +57,9 @@ export class Snake{
 
     public getMesh() {
         return this.body.getMesh();
+    }
+
+    public move(){
+        this.body.move();
     }
 }

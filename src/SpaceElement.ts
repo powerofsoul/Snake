@@ -5,7 +5,7 @@ export enum Directions{
 }
 
 export class SpaceElement extends THREE.Mesh {
-    public Move(direction:Directions,amount:number) {
+    public move(direction:Directions,amount:number) {
         switch(direction){
             case Directions.UP:
                 this.position.y += amount;
