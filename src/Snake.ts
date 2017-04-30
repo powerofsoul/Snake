@@ -1,66 +1,53 @@
 import { List } from "./Utils"
 import THREE = require('three');
+import {SpaceElement} from "./SpaceElement";
 
-interface IBodyGeometry {
-    geometry: THREE.BoxGeometry;
-    material: THREE.MeshBasicMaterial;
-    mesh: THREE.Mesh;
-}
-
-interface IBodyPart extends IBodyGeometry {
+interface IBodyPart {
     width: number;
     height: number;
-    position: THREE.Vector2;
 }
 
-class BodyGeometry implements IBodyPart {
+class BodyGeometry extends SpaceElement implements IBodyPart {
     width: number;
     height: number;
-    position: THREE.Vector2;
-    geometry: THREE.BoxGeometry;
-    material: THREE.MeshBasicMaterial;
-    mesh: THREE.Mesh;
 
-    constructor(color: string, position: THREE.Vector2, width: number, height: number) {
+
+    constructor(color: string, position: THREE.Vector3, width: number, height: number) {
+        super(new THREE.BoxGeometry(width, height, 0) , new THREE.MeshBasicMaterial({ color: color }));
         this.width = width;
         this.height = height;
-        this.position = position;
-        this.geometry = new THREE.BoxGeometry(width, height, 0);
-        this.material = new THREE.MeshBasicMaterial({ color: color });
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.position.set(position.x,position.y,position.z);
     }
 }
 
 class Head extends BodyGeometry implements IBodyPart {
-    position: THREE.Vector2;
 
-    constructor(startPosition: THREE.Vector2, color: string, width: number = 30, height: number = 30) {
+    constructor(startPosition: THREE.Vector3, color: string, width: number = 30, height: number = 30) {
         super(color, startPosition, width, height);
-        this.position = startPosition;
     }
 }
 
 class Body {
     head: Head;
-    bodyParts: List<IBodyPart>;
+    bodyParts: List<BodyGeometry>;
 
-    constructor(startPosition: THREE.Vector2, color: string) {
+    constructor(startPosition: THREE.Vector3, color: string) {
         this.head = new Head(startPosition, color);
-        this.bodyParts = new List<IBodyPart>();
+        this.bodyParts = new List<BodyGeometry>();
         this.bodyParts.add(this.head);
     }
 
     public getMesh() {
         var meshes = new THREE.Group();
-        meshes.add(this.head.mesh);
-        this.bodyParts.forEach(item => meshes.add(item.mesh));
+        meshes.add(this.head);
+        this.bodyParts.forEach(item => meshes.add(item));
         return meshes;
     }
 }
 
-export class Snake {
+export class Snake{
     body: Body;
-    constructor(startPostion: THREE.Vector2, color: string) {
+    constructor(startPostion: THREE.Vector3, color: string) {
         this.body = new Body(startPostion, color);
     }
 
