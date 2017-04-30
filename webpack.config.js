@@ -4,5 +4,5 @@ module.exports = {
    filename: './out/game.js',
    path: __dirname
  },
- devtool: 'inline-source-map',
+ devtool: 'inline-source-map'
 };
