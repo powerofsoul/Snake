@@ -1,34 +1,40 @@
 import THREE = require('three');
 import { GameWindow } from "./GameWindow";
 import { Snake } from "./Snake";
-var scene: THREE.Scene;
-var camera: THREE.PerspectiveCamera;
-var renderer = new THREE.WebGLRenderer();
-var geometry;
-var material;
-var mesh = new THREE.Mesh();
+import { InputEvent, EventType } from "./EventSubscriber"
 
 export class Game {
+    scene: THREE.Scene;
+    camera: THREE.PerspectiveCamera;
+    renderer = new THREE.WebGLRenderer();
+    mesh = new THREE.Mesh();
+
+
     constructor() {
         this.init();
     }
 
     init() {
 
-        scene = new THREE.Scene();
+        this.scene = new THREE.Scene();
 
-        camera = new THREE.PerspectiveCamera(75, GameWindow.width / GameWindow.height, 1, 10000);
-        camera.position.z = 1000;
+        this.camera = new THREE.PerspectiveCamera(75, GameWindow.width / GameWindow.height, 1, 10000);
+        this.camera.position.z = 1000;
 
-        var s = new Snake(new THREE.Vector2(12,0),"white");
+        var s = new Snake(new THREE.Vector2(12, 0), "white");
 
-        scene.add(s.getMesh());
+        this.scene.add(s.getMesh());
 
-        renderer = new THREE.WebGLRenderer();
-        renderer.setSize(GameWindow.width, GameWindow.width);
-        document.body.appendChild(renderer.domElement);
+        new InputEvent(EventType.RIGHT, () => console.log("right"));
+        new InputEvent(EventType.LEFT, () => console.log("left"));
+        new InputEvent(EventType.UP, () => console.log("up"));
+        new InputEvent(EventType.DOWN, () => console.log("down"));
+        
+        this.renderer = new THREE.WebGLRenderer();
+        this.renderer.setSize(GameWindow.width, GameWindow.width);
+        document.body.appendChild(this.renderer.domElement);
 
-        renderer.render(scene,camera);
+        this.renderer.render(this.scene, this.camera);
     }
 
 }
