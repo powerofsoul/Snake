@@ -22,3 +22,20 @@ export class SpaceElement extends THREE.Mesh {
         super(geometry,material);
     }
 }
+
+interface IBodyPart {
+    width: number;
+    height: number;
+}
+
+export class BodyGeometry extends SpaceElement implements IBodyPart {
+    width: number;
+    height: number;
+
+    constructor(color: string, position: THREE.Vector3, width: number, height: number) {
+        super(new THREE.BoxGeometry(width, height, 0) , new THREE.MeshBasicMaterial({ color: color }));
+        this.width = width;
+        this.height = height;
+        this.position.set(position.x,position.y,position.z);
+    }
+}

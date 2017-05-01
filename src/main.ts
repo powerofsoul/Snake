@@ -21,11 +21,9 @@ export class Game {
         this.camera = new THREE.PerspectiveCamera(75, GameWindow.width / GameWindow.height, 1, 10000);
         this.camera.position.z = 1000;
 
-        var s = new Snake(new THREE.Vector3(0,0,0), "white");
+        var snake = new Snake(new THREE.Vector3(0,0,0), "white");
 
-        this.scene.add(s.getMesh());
-
-        new InputEvent(EventType.RIGHT, () => console.log("right"));
+        this.scene.add(snake.getMesh());
         
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(GameWindow.width, GameWindow.width);
@@ -33,7 +31,7 @@ export class Game {
 
         this.renderer.render(this.scene, this.camera);
 
-        this.render(s);
+        this.render(snake);
     }
 
     render(s:Snake){

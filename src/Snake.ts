@@ -1,26 +1,8 @@
 import { List } from "./Utils"
 import THREE = require('three');
-import {SpaceElement, Directions} from "./SpaceElement";
+import {BodyGeometry, Directions} from "./SpaceElement";
 
-interface IBodyPart {
-    width: number;
-    height: number;
-}
-
-class BodyGeometry extends SpaceElement implements IBodyPart {
-    width: number;
-    height: number;
-
-
-    constructor(color: string, position: THREE.Vector3, width: number, height: number) {
-        super(new THREE.BoxGeometry(width, height, 0) , new THREE.MeshBasicMaterial({ color: color }));
-        this.width = width;
-        this.height = height;
-        this.position.set(position.x,position.y,position.z);
-    }
-}
-
-class Head extends BodyGeometry implements IBodyPart {
+class Head extends BodyGeometry {
 
     constructor(startPosition: THREE.Vector3, color: string, width: number = 30, height: number = 30) {
         super(color, startPosition, width, height);
