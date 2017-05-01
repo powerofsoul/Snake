@@ -2,6 +2,9 @@ import { List } from "./Utils"
 import THREE = require('three');
 import { BodyGeometry, Direction } from "./SpaceElement";
 import { InputEvent, EventType, MoveEvent } from "./EventSubscriber"
+import { GameElement } from "./GameElement";
+import {Game} from "./main"
+
 class Head extends BodyGeometry {
     moveEvent: MoveEvent;
 
@@ -83,8 +86,9 @@ class Body {
     }
 }
 
-export class Snake {
+export class Snake implements GameElement {
     body: Body;
+
     constructor(startPostion: THREE.Vector3, color: string) {
         this.body = new Body(startPostion, color);
     }
@@ -95,5 +99,9 @@ export class Snake {
 
     public move(speed:number) {
         this.body.move(speed);
+    }
+
+    public action(){
+        this.move(Game.gameSpeed);
     }
 }
