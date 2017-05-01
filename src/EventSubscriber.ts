@@ -11,6 +11,20 @@ interface IEventAction {
     (): void;
 }
 
+export class MoveEvent {
+    moveUpEvent: InputEvent;
+    moveDownEvent: InputEvent;
+    moveRightEvent: InputEvent;
+    moveLeftEvent: InputEvent;
+
+    constructor(moveUpEvent: InputEvent, moveDownEvent: InputEvent, moveRightEvent: InputEvent, moveLeftEvent: InputEvent) {
+        this.moveUpEvent = moveUpEvent;
+        this.moveDownEvent = moveDownEvent;
+        this.moveRightEvent = moveRightEvent;
+        this.moveLeftEvent = moveLeftEvent;
+    }
+}
+
 export class InputEvent implements IEvent {
     Type: EventType;
     EventAction: IEventAction;
@@ -18,10 +32,19 @@ export class InputEvent implements IEvent {
     constructor(name: EventType, eventAction: IEventAction) {
         this.Type = name;
         this.EventAction = eventAction;
-        this.AssignToEvent();
+        if (name == EventType.CLICK)
+            this.AssignMouseEvent();
+        else
+            this.AssignKeyboardEvent();
     }
 
-    private AssignToEvent() {
+    private AssignMouseEvent() {
+        document.addEventListener("click", () => {
+            this.EventAction();
+        });
+    }
+
+    private AssignKeyboardEvent() {
         document.addEventListener("keydown", (e) => {
             switch (this.Type) {
                 case EventType.DOWN:

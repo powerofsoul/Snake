@@ -4,23 +4,8 @@ export enum Direction {
     UP, DOWN, LEFT, RIGHT
 }
 
-class MoveEvent {
-    moveUpEvent: InputEvent;
-    moveDownEvent: InputEvent;
-    moveRightEvent: InputEvent;
-    moveLeftEvent: InputEvent;
-
-    constructor(moveUpEvent: InputEvent, moveDownEvent: InputEvent, moveRightEvent: InputEvent, moveLeftEvent: InputEvent) {
-        this.moveUpEvent = moveUpEvent;
-        this.moveDownEvent = moveDownEvent;
-        this.moveRightEvent = moveRightEvent;
-        this.moveLeftEvent = moveLeftEvent;
-    }
-}
-
 export class SpaceElement extends THREE.Mesh {
-    facedDirection: Direction;
-    moveEvents: MoveEvent;
+    public facedDirection: Direction;
 
     public move(amount: number) {
         switch (this.facedDirection) {
@@ -39,19 +24,12 @@ export class SpaceElement extends THREE.Mesh {
         }
     }
 
-    constructor(geometry: THREE.Geometry, material: THREE.Material, facedDirection?: Direction) {
+    constructor(geometry: THREE.Geometry, material: THREE.Material, facedDirection: Direction) {
         super(geometry, material);
         if (facedDirection === undefined)
             this.facedDirection = Direction.UP;
         else
             this.facedDirection = Direction.DOWN;
-
-        this.moveEvents = new MoveEvent(
-            new InputEvent(EventType.UP, () => this.facedDirection = Direction.UP),
-            new InputEvent(EventType.DOWN, () => this.facedDirection = Direction.DOWN),
-            new InputEvent(EventType.RIGHT, () => this.facedDirection = Direction.RIGHT),
-            new InputEvent(EventType.LEFT, () => this.facedDirection = Direction.LEFT),
-        )
     }
 }
 
@@ -64,8 +42,8 @@ export class BodyGeometry extends SpaceElement implements IBodyPart {
     width: number;
     height: number;
 
-    constructor(color: string, position: THREE.Vector3, width: number, height: number) {
-        super(new THREE.BoxGeometry(width, height, 0), new THREE.MeshBasicMaterial({ color: color }));
+    constructor(color: string, position: THREE.Vector3, width: number, height: number, facedDirection: Direction) {
+        super(new THREE.BoxGeometry(width, height, 0), new THREE.MeshBasicMaterial({ color: color }), facedDirection);
         this.width = width;
         this.height = height;
         this.position.set(position.x, position.y, position.z);
