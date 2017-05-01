@@ -17,6 +17,7 @@
   "dependencies": {
     "typescript":"^2.3.2",
     "@types/three": "latest",
+    "three-text2d":"^0.3.4",
     "three": "^0.85.2"
   },
   "devDependencies": {

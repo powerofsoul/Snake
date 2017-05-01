@@ -7,7 +7,9 @@ import {Game} from "./main"
 
 class Head extends BodyGeometry {
     moveEvent: MoveEvent;
-
+    score:number;
+    lives:number;
+    
     constructor(startPosition: THREE.Vector3, color: string, width: number = 30, height: number = 30) {
         super(color, startPosition, width, height, Direction.UP);
         this.moveEvent = new MoveEvent(
