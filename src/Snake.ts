@@ -1,6 +1,6 @@
 import { List } from "./Utils"
 import THREE = require('three');
-import {BodyGeometry, Directions} from "./SpaceElement";
+import {BodyGeometry, Direction} from "./SpaceElement";
 
 class Head extends BodyGeometry {
 
@@ -27,7 +27,7 @@ class Body {
     }
 
     public move(){
-        this.bodyParts.forEach((item) => item.move(Directions.UP,10));
+        this.bodyParts.forEach((item) => item.move(10));
     }
 }
 

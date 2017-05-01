@@ -22,24 +22,24 @@ export class InputEvent implements IEvent {
     }
 
     private AssignToEvent() {
-        document.addEventListener("keydown",(e)=>{
-            switch(this.Type){
+        document.addEventListener("keydown", (e) => {
+            switch (this.Type) {
                 case EventType.DOWN:
-                    if(e.key == "s")
+                    if (e.key == "s")
                         this.EventAction();
-                break;
+                    break;
                 case EventType.UP:
-                    if(e.key == "w")
+                    if (e.key == "w")
                         this.EventAction();
-                break;
+                    break;
                 case EventType.RIGHT:
-                    if(e.key=="d")
+                    if (e.key == "d")
                         this.EventAction();
-                break;
+                    break;
                 case EventType.LEFT:
-                    if(e.key == "a")
+                    if (e.key == "a")
                         this.EventAction();
-                break;
+                    break;
             }
         });
     }
