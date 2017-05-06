@@ -48,3 +48,7 @@ export class List<T>{
 interface CallBack<T> {
     (item: T): void;
 }
+
+export function getRandomInt(min:number, max:number) : number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

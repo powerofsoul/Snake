@@ -1,4 +1,4 @@
-import { List } from "./Utils"
+import { List, getRandomInt } from "./Utils"
 import THREE = require('three');
 import { BodyGeometry, Direction } from "./SpaceElement";
 import { InputEvent, EventType, MoveEvent } from "./EventSubscriber"
@@ -28,14 +28,15 @@ class Head extends BodyGeometry {
         )
     }
 
-    public checkCollision(): boolean {
-        var found : boolean = false;
-        Game.gameWindow.meshes.forEach(item => {
+    public checkCollision(): THREE.Mesh[] {
+        var found: THREE.Mesh[] = [];
+
+        Game.gameWindow.getMeshes().forEach(item => {
             if (item != this && this.isColiding(item)) {
-                console.log("work");
-                found =  true;
+                found.push(item);
             }
         })
+
         return found;
     }
 }
@@ -51,9 +52,10 @@ class Body {
     }
 
     public getMesh() {
-        var meshes = new THREE.Group();
-        meshes.add(this.head);
-        this.bodyParts.forEach(item => meshes.add(item));
+        var meshes: THREE.Mesh[] = [];
+        meshes.push(this.head);
+        this.bodyParts.forEach(item => meshes.push(item));
+
         return meshes;
     }
 
@@ -116,8 +118,20 @@ export class Snake implements GameElement {
 
     public action() {
         this.move(Game.gameSpeed);
-        if(this.body.head.checkCollision()){
-            this.body.addTail(Game.gameWindow.scene);
+        var collisionItems = this.body.head.checkCollision();
+        if (collisionItems.length > 0) {
+            collisionItems.forEach(element => {
+                if (element.name == "point") {
+                    Game.gameWindow.updateScore(Game.score++);
+                    this.body.addTail(Game.gameWindow.scene);
+                    element.position.set(
+                        getRandomInt(0, Game.gameWindow.width),
+                        getRandomInt(0, Game.gameWindow.height)
+                        , 0
+                    );
+                }
+            });
+
         }
     }
 }
