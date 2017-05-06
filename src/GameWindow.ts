@@ -2,6 +2,7 @@ import THREE = require("three");
 import { List } from "./Utils";
 import { GameElement } from "./GameElement"
 import { MeshText2D, textAlign } from "three-text2d";
+
 export class GameWindow {
     public width: number = 700;
     public height: number = 700;
@@ -59,6 +60,7 @@ export class GameWindow {
         var line = new THREE.Line(geometry, material);
         this.scene.add(line);
     }
+
     scoreText: MeshText2D;
     highScoreText: MeshText2D;
     createInfoArea(scene: THREE.Scene) {
@@ -73,16 +75,16 @@ export class GameWindow {
             font: '75px Arial'
         });
         this.highScoreText.position.set(this.width, this.height - 100, 0);
-        
+
         scene.add(this.scoreText);
         scene.add(this.highScoreText);
     }
 
-    updateScore(amount:number){
-        this.scoreText.text = "Score:"+ amount;
+    updateScore(amount: number) {
+        this.scoreText.text = "Score:" + amount;
     }
 
-    updateHighScore(amount:number){
+    updateHighScore(amount: number) {
         this.highScoreText.text = "High Score:" + amount;
     }
 }
