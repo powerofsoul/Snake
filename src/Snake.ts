@@ -63,6 +63,23 @@ class Body {
 
         var newPos = new THREE.Vector3().setFromMatrixPosition(this.head.matrixWorld);
         this.head.move(speed);
+        if (this.head.position.x > Game.gameWindow.width) {
+            this.head.position.set(-this.head.position.x + 3, this.head.position.y, 0);
+            this.head.facedDirection = Direction.RIGHT;
+        }
+        else if (this.head.position.x < -Game.gameWindow.width) {
+            this.head.position.set(-this.head.position.x, this.head.position.y, 0);
+            this.head.facedDirection = Direction.LEFT;
+        }
+
+        if (this.head.position.y > Game.gameWindow.height - Game.gameWindow.infoAreaHeight) {
+            this.head.position.set(this.head.position.x, -Game.gameWindow.height, 0);
+            this.head.facedDirection = Direction.UP;
+        }
+        if (this.head.position.y < -Game.gameWindow.height) {
+            this.head.position.set(this.head.position.x, Game.gameWindow.height - Game.gameWindow.infoAreaHeight, 0);
+            this.head.facedDirection = Direction.DOWN;
+        }
         var lastPos = newPos;
         for (var i = 1; i < this.bodyParts.size; i++) {
             lastPos = new THREE.Vector3().setFromMatrixPosition(this.bodyParts.getAt(i).matrixWorld);
@@ -126,7 +143,7 @@ export class Snake implements GameElement {
                     this.body.addTail(Game.gameWindow.scene);
                     element.position.set(
                         getRandomInt(0, Game.gameWindow.width),
-                        getRandomInt(0, Game.gameWindow.height)
+                        getRandomInt(0, Game.gameWindow.height - Game.gameWindow.infoAreaHeight)
                         , 0
                     );
                 }
