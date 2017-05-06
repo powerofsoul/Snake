@@ -2,16 +2,19 @@ import THREE = require("three");
 import { List } from "./Utils";
 import { GameElement } from "./GameElement"
 import { MeshText2D, textAlign } from "three-text2d";
+import { BodyGeometry } from "./SpaceElement";
+
 export class GameWindow {
     public width: number = 700;
     public height: number = 700;
 
     public infoAreaHeight: number = 200;
 
-    scene: THREE.Scene;
+    public scene: THREE.Scene;
     camera: THREE.OrthographicCamera;
     renderer = new THREE.WebGLRenderer();
-    mesh = new THREE.Mesh();
+
+    meshes: THREE.Mesh[] = [];
 
     gameElements: List<GameElement> = new List<GameElement>();
 
@@ -32,7 +35,17 @@ export class GameWindow {
 
 
     public AddToWindow(element: GameElement) {
-        this.scene.add(element.getMesh());
+        var meshes = element.getMesh();
+        this.scene.add(meshes);
+
+        if (meshes instanceof THREE.Mesh)
+            this.meshes.push(meshes);
+        else
+            meshes.children.forEach(item => {
+                if (item instanceof THREE.Mesh)
+                    this.meshes.push(item);
+            })
+
         this.gameElements.add(element);
     }
 
@@ -73,16 +86,16 @@ export class GameWindow {
             font: '75px Arial'
         });
         this.highScoreText.position.set(this.width, this.height - 100, 0);
-        
+
         scene.add(this.scoreText);
         scene.add(this.highScoreText);
     }
 
-    updateScore(amount:number){
-        this.scoreText.text = "Score:"+ amount;
+    public updateScore(amount: number) {
+        this.scoreText.text = "Score:" + amount;
     }
 
-    updateHighScore(amount:number){
+    public updateHighScore(amount: number) {
         this.highScoreText.text = "High Score:" + amount;
     }
 }
