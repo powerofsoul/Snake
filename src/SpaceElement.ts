@@ -50,7 +50,7 @@ export class BodyGeometry extends SpaceElement implements IBodyPart {
     }
 
     public isColiding(element: THREE.Mesh) : boolean {
-        return (Math.abs(this.position.x - element.position.x) * 2 < (this.width + element.scale.x)) &&
-            (Math.abs(this.position.y - element.position.y) * 2 < (this.height + element.scale.y));
+        return (Math.abs(this.position.x - element.position.x)  < (this.width + element.scale.x)) &&
+            (Math.abs(this.position.y - element.position.y)  < (this.height + element.scale.y));
     }
 }
