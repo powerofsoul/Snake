@@ -66,7 +66,7 @@ export class GameWindow {
             this.gameElements.forEach((gameElement) => gameElement.action());
             this.renderer.render(this.scene, this.camera);
             requestAnimationFrame(e => { this.render() });
-        }, 10)
+        }, 80)
     }
 
     drawBorder() {

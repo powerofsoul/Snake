@@ -128,6 +128,15 @@ export class Snake implements GameElement {
                         , 0
                     );
                 }
+                else{
+                    Game.highScore = Game.score > Game.highScore ? Game.score : Game.highScore;
+                    Game.gameWindow.updateScore(0);
+                    Game.gameWindow.updateHighScore(Game.highScore);
+                    this.body.head.position.set(0,0,0);
+                    this.body.bodyParts.forEach((element) => Game.gameWindow.scene.remove(element));
+                    this.body.bodyParts.clear();
+                    this.body.bodyParts.add(this.body.head);
+                }
             });
 
         }

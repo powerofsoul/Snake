@@ -9,7 +9,7 @@ export class Game {
     static gameSpeed: number = 44;
     static gameWindow: GameWindow;
     static score:number = 0;
-
+    static highScore:number = 0;
     static StartGame() {
         Game.gameWindow = new GameWindow();
         var snake = new Snake(new THREE.Vector3(0, 0, 0), "white");
