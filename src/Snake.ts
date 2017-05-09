@@ -10,22 +10,9 @@ class Head extends BodyGeometry {
     score: number;
     lives: number;
 
-    constructor(startPosition: THREE.Vector3, color: string, width: number = 30, height: number = 30) {
+    constructor(startPosition: THREE.Vector3, color: string, moveEvent: MoveEvent, width: number = 30, height: number = 30) {
         super(color, startPosition, width, height, Direction.UP);
-        this.moveEvent = new MoveEvent(
-            new InputEvent(EventType.UP, () =>
-                this.facedDirection = this.facedDirection != Direction.DOWN ? Direction.UP : Direction.DOWN
-            ),
-            new InputEvent(EventType.DOWN, () =>
-                this.facedDirection = this.facedDirection != Direction.UP ? Direction.DOWN : Direction.UP
-            ),
-            new InputEvent(EventType.RIGHT, () =>
-                this.facedDirection = this.facedDirection != Direction.LEFT ? Direction.RIGHT : Direction.LEFT
-            ),
-            new InputEvent(EventType.LEFT, () =>
-                this.facedDirection = this.facedDirection != Direction.RIGHT ? Direction.LEFT : Direction.RIGHT
-            )
-        )
+        this.moveEvent = moveEvent;
     }
 
     public checkCollision(): THREE.Mesh[] {
@@ -46,7 +33,23 @@ class Body {
     bodyParts: List<BodyGeometry>;
 
     constructor(startPosition: THREE.Vector3, color: string) {
-        this.head = new Head(startPosition, color);
+        this.head = new Head(
+            startPosition,
+            color,
+            new MoveEvent(
+                new InputEvent(EventType.UP, () =>
+                    this.head.facedDirection = this.head.facedDirection != Direction.DOWN || this.bodyParts.size == 1 ? Direction.UP : Direction.DOWN
+                ),
+                new InputEvent(EventType.DOWN, () =>
+                    this.head.facedDirection = this.head.facedDirection != Direction.UP || this.bodyParts.size == 1 ? Direction.DOWN : Direction.UP
+                ),
+                new InputEvent(EventType.RIGHT, () =>
+                    this.head.facedDirection = this.head.facedDirection != Direction.LEFT || this.bodyParts.size == 1 ? Direction.RIGHT : Direction.LEFT
+                ),
+                new InputEvent(EventType.LEFT, () =>
+                    this.head.facedDirection = this.head.facedDirection != Direction.RIGHT || this.bodyParts.size == 1 ? Direction.LEFT : Direction.RIGHT
+                )
+            ));
         this.bodyParts = new List<BodyGeometry>();
         this.bodyParts.add(this.head);
     }
