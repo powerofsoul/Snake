@@ -1,4 +1,6 @@
 {
+  "name": "snake",
+  "version": "0.0.1",
   "author": {
     "name": "Florin Munteanu",
     "email": "florinmunteanu96@gmail.com"
@@ -11,13 +13,12 @@
   "scripts": {
     "compile": "tsc -p ./src",
     "start": "webpack --config webpack.config.js",
-    
-    "deploy":"npm run compile && npm start"
+    "deploy": "npm run compile && npm start"
   },
   "dependencies": {
-    "typescript":"^2.3.2",
+    "typescript": "^2.3.2",
     "@types/three": "latest",
-    "three-text2d":"^0.3.4",
+    "three-text2d": "^0.3.4",
     "three": "^0.85.2"
   },
   "devDependencies": {
