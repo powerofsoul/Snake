@@ -14,16 +14,16 @@ class Head extends BodyGeometry {
         super(color, startPosition, width, height, Direction.UP);
         this.moveEvent = new MoveEvent(
             new InputEvent(EventType.UP, () =>
-                this.facedDirection = Direction.UP
+                this.facedDirection = this.facedDirection != Direction.DOWN ? Direction.UP : Direction.DOWN
             ),
             new InputEvent(EventType.DOWN, () =>
-                this.facedDirection = Direction.DOWN
+                this.facedDirection = this.facedDirection != Direction.UP ? Direction.DOWN : Direction.UP
             ),
             new InputEvent(EventType.RIGHT, () =>
-                this.facedDirection = Direction.RIGHT
+                this.facedDirection = this.facedDirection != Direction.LEFT ? Direction.RIGHT : Direction.LEFT
             ),
             new InputEvent(EventType.LEFT, () =>
-                this.facedDirection = Direction.LEFT
+                this.facedDirection = this.facedDirection != Direction.RIGHT ? Direction.LEFT : Direction.RIGHT
             )
         )
     }
