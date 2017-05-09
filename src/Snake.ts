@@ -90,30 +90,8 @@ class Body {
 
     public addTail(scene: THREE.Scene) {
         var lastBodyPart = this.bodyParts.last();
-
-        switch (lastBodyPart.facedDirection) {
-            case Direction.UP:
-                var newPosition = new THREE.Vector3().setFromMatrixPosition(lastBodyPart.matrixWorld);
-                newPosition.y -= 30;
-                this.bodyParts.add(new BodyGeometry("red", newPosition, 30, 30, lastBodyPart.facedDirection));
-                break;
-            case Direction.DOWN:
-                var newPosition = new THREE.Vector3().setFromMatrixPosition(lastBodyPart.matrixWorld);
-                newPosition.y += 30;
-                this.bodyParts.add(new BodyGeometry("red", newPosition, 30, 30, lastBodyPart.facedDirection));
-                break;
-            case Direction.RIGHT:
-                var newPosition = new THREE.Vector3().setFromMatrixPosition(lastBodyPart.matrixWorld);
-                newPosition.x -= 30;
-                this.bodyParts.add(new BodyGeometry("red", newPosition, 30, 30, lastBodyPart.facedDirection));
-                break;
-            case Direction.LEFT:
-                var newPosition = new THREE.Vector3().setFromMatrixPosition(lastBodyPart.matrixWorld);
-                newPosition.x += 30;
-                this.bodyParts.add(new BodyGeometry("red", newPosition, 30, 30, lastBodyPart.facedDirection));
-                break;
-        }
-
+        var newPosition = new THREE.Vector3().setFromMatrixPosition(lastBodyPart.matrixWorld);
+        this.bodyParts.add(new BodyGeometry("red", newPosition, 30, 30, lastBodyPart.facedDirection));
         scene.add(this.bodyParts.last());
     }
 }
