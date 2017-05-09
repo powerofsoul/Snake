@@ -6,7 +6,7 @@ import { BodyGeometry } from "./SpaceElement";
 import { Point } from "./Point";
 
 export class Game {
-    static gameSpeed: number = 10;
+    static gameSpeed: number = 44;
     static gameWindow: GameWindow;
     static score:number = 0;
 

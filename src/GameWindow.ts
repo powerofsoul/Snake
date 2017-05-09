@@ -17,8 +17,8 @@ export class GameWindow {
 
     gameElements: List<GameElement> = new List<GameElement>();
 
-    public getMeshes() : THREE.Mesh[]{
-        var meshes : THREE.Mesh[] = [];
+    public getMeshes(): THREE.Mesh[] {
+        var meshes: THREE.Mesh[] = [];
 
         this.gameElements.forEach(element => {
             meshes = meshes.concat(element.getMesh());
@@ -45,26 +45,28 @@ export class GameWindow {
 
     public AddToWindow(element: GameElement) {
         var meshes = element.getMesh();
-        
-        var objects : THREE.Group = new THREE.Group;
 
-        meshes.forEach(item=>
+        var objects: THREE.Group = new THREE.Group;
+
+        meshes.forEach(item =>
             objects.add(item));
 
         this.scene.add(objects);
 
         this.gameElements.add(element);
     }
-    
-    public RemoveFromWindow(element: THREE.Mesh){
+
+    public RemoveFromWindow(element: THREE.Mesh) {
         this.scene.remove(element);
 
     }
 
     render() {
-        this.gameElements.forEach((gameElement) => gameElement.action());
-        this.renderer.render(this.scene, this.camera);
-        requestAnimationFrame(e => { this.render() });
+        setTimeout(() => {
+            this.gameElements.forEach((gameElement) => gameElement.action());
+            this.renderer.render(this.scene, this.camera);
+            requestAnimationFrame(e => { this.render() });
+        }, 10)
     }
 
     drawBorder() {
