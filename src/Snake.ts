@@ -131,6 +131,7 @@ export class Snake implements GameElement {
                 else{
                     Game.highScore = Game.score > Game.highScore ? Game.score : Game.highScore;
                     Game.gameWindow.updateScore(0);
+                    Game.score=0;
                     Game.gameWindow.updateHighScore(Game.highScore);
                     this.body.head.position.set(0,0,0);
                     this.body.bodyParts.forEach((element) => Game.gameWindow.scene.remove(element));
