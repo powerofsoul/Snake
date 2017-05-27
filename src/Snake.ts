@@ -117,10 +117,12 @@ export class Snake implements GameElement {
     public action() {
         this.move(Game.gameSpeed);
         var collisionItems = this.body.head.checkCollision();
+        console.log(collisionItems.length);
         if (collisionItems.length > 0) {
             collisionItems.forEach(element => {
                 if (element.name == "point") {
-                    Game.gameWindow.updateScore(Game.score++);
+                    Game.gameWindow.updateScore(++Game.score);
+                    Game.gameSpeed = Game.score < 25 ? Game.score/5 + 5 : 25;
                     this.body.addTail(Game.gameWindow.scene);
                     element.position.set(
                         getRandomInt(0, Game.gameWindow.width),
@@ -128,15 +130,21 @@ export class Snake implements GameElement {
                         , 0
                     );
                 }
-                else{
-                    // Game.highScore = Game.score > Game.highScore ? Game.score : Game.highScore;
-                    // Game.gameWindow.updateScore(0);
-                    // Game.score=0;
-                    // Game.gameWindow.updateHighScore(Game.highScore);
-                    // this.body.head.position.set(0,0,0);
-                    // this.body.bodyParts.forEach((element) => Game.gameWindow.scene.remove(element));
-                    // this.body.bodyParts.clear();
-                    // this.body.bodyParts.add(this.body.head);
+                else {
+                    if (this.body.bodyParts.size <= 12)
+                        return;
+                    for(var i=0;i<=12;i++)
+                        if(this.body.bodyParts.getAt(i)==element)
+                            return;
+                    Game.highScore = Game.score > Game.highScore ? Game.score : Game.highScore;
+                    Game.gameWindow.updateScore(0);
+                    Game.score = 0;
+                    Game.gameSpeed = 5;
+                    Game.gameWindow.updateHighScore(Game.highScore);
+                    this.body.head.position.set(0, 0, 0);
+                    this.body.bodyParts.forEach((element) => Game.gameWindow.scene.remove(element));
+                    this.body.bodyParts.clear();
+                    this.body.bodyParts.add(this.body.head);
                 }
             });
 
