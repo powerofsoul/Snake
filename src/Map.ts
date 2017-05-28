@@ -49,7 +49,7 @@ export class Map {
         var group : THREE.Group = new THREE.Group();
 
         this.GetMesh().forEach(mesh => group.add(mesh));
-
+        group.name = "map";
         return group;
     }
 }

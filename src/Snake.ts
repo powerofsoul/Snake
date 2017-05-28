@@ -130,7 +130,6 @@ export class Snake implements GameElement {
                     );
                 }
                 else {
-                    console.log(element.name);
                     for(var i=0;i<=12;i++)
                         if(this.body.bodyParts.getAt(i)==element)
                             return;
@@ -140,6 +139,7 @@ export class Snake implements GameElement {
                     Game.score = 0;
                     Game.gameSpeed = 5;
                     Game.gameWindow.updateHighScore(Game.highScore);
+                    Game.gameWindow.resetMap();
                     this.body.head.position.set(0, 0, 0);
                     this.body.bodyParts.forEach((element) => Game.gameWindow.scene.remove(element));
                     this.body.bodyParts.clear();

@@ -4,7 +4,7 @@ import { GameElement } from "./GameElement"
 import { MeshText2D, textAlign } from "three-text2d";
 import { BodyGeometry } from "./SpaceElement";
 import { Map } from "./Map";
-
+import { Game } from "./main";
 
 export class GameWindow {
     public width: number = 700;
@@ -18,7 +18,7 @@ export class GameWindow {
 
 
     gameElements: List<GameElement> = new List<GameElement>();
-    map : Map;
+    map: Map;
 
     public getMeshes(): THREE.Mesh[] {
         var meshes: THREE.Mesh[] = [];
@@ -26,8 +26,8 @@ export class GameWindow {
         this.gameElements.forEach(element => {
             meshes = meshes.concat(element.getMesh());
         });
-        
-        this.map.GetMesh().forEach(mesh=> meshes.push(mesh));
+
+        this.map.GetMesh().forEach(mesh => meshes.push(mesh));
 
         return meshes;
     }
@@ -40,7 +40,7 @@ export class GameWindow {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(this.width, this.height);
 
-        this.map  = new Map();
+        this.map = new Map();
 
         this.scene.add(this.map.GetMeshGroup());
 
@@ -71,9 +71,9 @@ export class GameWindow {
     }
 
     render() {
-            this.gameElements.forEach((gameElement) => gameElement.action());
-            this.renderer.render(this.scene, this.camera);
-            requestAnimationFrame(e => { this.render() });
+        this.gameElements.forEach((gameElement) => gameElement.action());
+        this.renderer.render(this.scene, this.camera);
+        requestAnimationFrame(e => { this.render() });
     }
 
     drawBorder() {
@@ -102,7 +102,7 @@ export class GameWindow {
         });
         this.scoreText.position.set(-this.width, this.height - 100, 0);
 
-        this.highScoreText = new MeshText2D("High Score: 0", {
+        this.highScoreText = new MeshText2D(`High Score: ${Game.highScore}`, {
             align: textAlign.right,
             font: '75px Arial'
         });
@@ -118,5 +118,13 @@ export class GameWindow {
 
     public updateHighScore(amount: number) {
         this.highScoreText.text = "High Score:" + amount;
+    }
+
+    public resetMap() {
+        var object = this.scene.getObjectByName("map");
+            this.scene.remove(object);
+
+        this.map = new Map();
+        this.scene.add(this.map.GetMeshGroup());
     }
 }
