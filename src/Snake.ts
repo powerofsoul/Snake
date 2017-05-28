@@ -140,6 +140,7 @@ export class Snake implements GameElement {
                     Game.gameSpeed = 5;
                     Game.gameWindow.updateHighScore(Game.highScore);
                     Game.gameWindow.resetMap();
+                    this.body.head.facedDirection = Direction.UP;
                     this.body.head.position.set(0, 0, 0);
                     this.body.bodyParts.forEach((element) => Game.gameWindow.scene.remove(element));
                     this.body.bodyParts.clear();
