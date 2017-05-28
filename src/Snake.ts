@@ -117,7 +117,6 @@ export class Snake implements GameElement {
     public action() {
         this.move(Game.gameSpeed);
         var collisionItems = this.body.head.checkCollision();
-        console.log(collisionItems.length);
         if (collisionItems.length > 0) {
             collisionItems.forEach(element => {
                 if (element.name == "point") {
@@ -131,11 +130,11 @@ export class Snake implements GameElement {
                     );
                 }
                 else {
-                    if (this.body.bodyParts.size <= 12)
-                        return;
+                    if(element.name != "wall"){
                     for(var i=0;i<=12;i++)
                         if(this.body.bodyParts.getAt(i)==element)
                             return;
+                    }
                     Game.highScore = Game.score > Game.highScore ? Game.score : Game.highScore;
                     Game.gameWindow.updateScore(0);
                     Game.score = 0;

@@ -3,6 +3,8 @@ import { List } from "./Utils";
 import { GameElement } from "./GameElement"
 import { MeshText2D, textAlign } from "three-text2d";
 import { BodyGeometry } from "./SpaceElement";
+import { Map } from "./Map";
+
 
 export class GameWindow {
     public width: number = 700;
@@ -35,6 +37,9 @@ export class GameWindow {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(this.width, this.height);
 
+        var map  = new Map();
+        this.scene.add(map.GetMesh());
+        
         document.body.appendChild(this.renderer.domElement);
         this.drawBorder();
         this.createInfoArea(this.scene);

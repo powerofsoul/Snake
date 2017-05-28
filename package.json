@@ -16,12 +16,18 @@
     "deploy": "npm run compile && npm start"
   },
   "dependencies": {
+    "@types/node": "^7.0.22",
+    "@types/typescript": "^2.0.0",
     "typescript": "^2.3.2",
     "@types/three": "latest",
     "three-text2d": "^0.3.4",
     "three": "^0.85.2"
   },
   "devDependencies": {
+    "json-loader":"^0.5.4",
+    "@types/node": "^7.0.22",
+    "@types/typescript": "^2.0.0",
+    "typescript": "^2.3.2",
     "source-map-loader": "^0.2.1",
     "webpack": "^2.4.1"
   }
