@@ -32,15 +32,23 @@ export class Map {
     }
 
     public GetMesh(){
-        var group : THREE.Group = new THREE.Group();
+        var meshes : THREE.Mesh[] = [];
         var currentLayout = this.MapLayouts.getAt(this.currentLayout);
         currentLayout.Walls.forEach(wall=>{
            var tempWall = new THREE.Mesh( new THREE.BoxGeometry(wall.size.width, wall.size.height, 0), new THREE.MeshBasicMaterial({ color: wall.color }));
            tempWall.position.setX(wall.position.x);
            tempWall.position.setY(wall.position.y);
            tempWall.name = "wall";
-           group.add(tempWall);
+           meshes.push(tempWall);
         })
+
+        return meshes;
+    }
+
+    public GetMeshGroup(){
+        var group : THREE.Group = new THREE.Group();
+
+        this.GetMesh().forEach(mesh => group.add(mesh));
 
         return group;
     }

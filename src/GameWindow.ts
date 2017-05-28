@@ -18,6 +18,7 @@ export class GameWindow {
 
 
     gameElements: List<GameElement> = new List<GameElement>();
+    map : Map;
 
     public getMeshes(): THREE.Mesh[] {
         var meshes: THREE.Mesh[] = [];
@@ -25,6 +26,8 @@ export class GameWindow {
         this.gameElements.forEach(element => {
             meshes = meshes.concat(element.getMesh());
         });
+        
+        this.map.GetMesh().forEach(mesh=> meshes.push(mesh));
 
         return meshes;
     }
@@ -37,9 +40,10 @@ export class GameWindow {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(this.width, this.height);
 
-        var map  = new Map();
-        this.scene.add(map.GetMesh());
-        
+        this.map  = new Map();
+
+        this.scene.add(this.map.GetMeshGroup());
+
         document.body.appendChild(this.renderer.domElement);
         this.drawBorder();
         this.createInfoArea(this.scene);

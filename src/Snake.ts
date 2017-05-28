@@ -130,11 +130,11 @@ export class Snake implements GameElement {
                     );
                 }
                 else {
-                    if(element.name != "wall"){
+                    console.log(element.name);
                     for(var i=0;i<=12;i++)
                         if(this.body.bodyParts.getAt(i)==element)
                             return;
-                    }
+                    
                     Game.highScore = Game.score > Game.highScore ? Game.score : Game.highScore;
                     Game.gameWindow.updateScore(0);
                     Game.score = 0;
